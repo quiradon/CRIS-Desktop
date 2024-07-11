@@ -4,7 +4,8 @@
   "description": "C.R.I.S versão desktop",
   "main": "app/index.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "test" : "teste"
   },
   "author": "Quir",
   "license": "ISC",

@@ -28,8 +28,9 @@ jobs:
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@latest
         with:
-          name: my-app-build-artifacts
-          path: dist/**/*
+          name: CRIS-DESKTOP
+          path: dist/**/*.exe
+
 

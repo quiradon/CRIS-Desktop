@@ -1,5 +1,6 @@
 const { app, BrowserWindow, shell, Tray, Menu} = require('electron');
 const rpc = require("discord-rpc");
+const path = require('path');
 const client = new rpc.Client({ transport: 'ipc' });
 let id = '1257498304753700865';
 const domain = 'crisordemparanormal.com';
@@ -13,24 +14,16 @@ const pictureNames = ["cris","mundano2","recruta2","operador2","especial2","elit
 const lugares = ["Em missão ","Estudando o Outro Lado","Preenchendo papelada"]
 
 
-//Bloqueio de Duplicidade
-
-
-//Menu de Configurações
-console.log(app.getLoginItemSettings([]))
-
-
-
 app.whenReady().then(() => {
-    tray = new Tray('icon.ico')
-  
+    const iconPath = path.join(__dirname, 'icon.ico');
+    tray = new Tray(iconPath);
+    console.log(app.getLoginItemSettings().openAtLogin)
     const contextMenu = Menu.buildFromTemplate([
         { label: 'Iniciar com o Sistema', 'type': 'checkbox', checked: app.getLoginItemSettings().openAtLogin, click: () => {app.setLoginItemSettings({openAtLogin: !app.getLoginItemSettings().openAtLogin})}},
-        { label: 'Iniciar Minimizado', 'type': 'checkbox', checked: app.getLoginItemSettings().openAsHidden, click: () => {app.setLoginItemSettings({openAsHidden: !app.getLoginItemSettings().openAsHidden})}},
         { type: 'separator'},
         { label: 'Fechar', 'type': 'normal', click: () => {app.quit()}}
       ])
-      
+     
       tray.setContextMenu(contextMenu)
   })
 

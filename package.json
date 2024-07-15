@@ -1,13 +1,15 @@
 {
   "name": "cris",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "C.R.I.S versão desktop",
   "main": "app/index.js",
+  "src" : "app",
   "scripts": {
     "start": "electron .",
     "test" : "teste"
   },
   "author": "Quir",
+  "publisher": "CRIS",
   "license": "ISC",
   "build" : {
     
@@ -20,7 +22,8 @@
     "appId": "com.cris.app",
     "productName": "C.R.I.S.",
     "directories": {
-      "output": "dist"
+      "output": "dist",
+      "buildResources": "app/img"
     },
     
     "win": {

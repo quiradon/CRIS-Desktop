@@ -1,4 +1,4 @@
-const { app, BrowserWindow, shell } = require('electron');
+const { app, BrowserWindow, shell, Tray, Menu} = require('electron');
 const rpc = require("discord-rpc");
 const client = new rpc.Client({ transport: 'ipc' });
 let id = '1257498304753700865';
@@ -12,6 +12,31 @@ const titulos = ["A Melhor Plataforma para Jogar Ordem","Mundano", "Recruta","Op
 const pictureNames = ["cris","mundano2","recruta2","operador2","especial2","elite2","parceiro2","equipe2"]
 const lugares = ["Em missão ","Estudando o Outro Lado","Preenchendo papelada"]
 
+
+//Bloqueio de Duplicidade
+
+
+//Menu de Configurações
+console.log(app.getLoginItemSettings([]))
+
+
+
+app.whenReady().then(() => {
+    tray = new Tray('icon.ico')
+  
+    const contextMenu = Menu.buildFromTemplate([
+        { label: 'Iniciar com o Sistema', 'type': 'checkbox', checked: app.getLoginItemSettings().openAtLogin, click: () => {app.setLoginItemSettings({openAtLogin: !app.getLoginItemSettings().openAtLogin})}},
+        { label: 'Iniciar Minimizado', 'type': 'checkbox', checked: app.getLoginItemSettings().openAsHidden, click: () => {app.setLoginItemSettings({openAsHidden: !app.getLoginItemSettings().openAsHidden})}},
+        { type: 'separator'},
+        { label: 'Fechar', 'type': 'normal', click: () => {app.quit()}}
+      ])
+      
+      tray.setContextMenu(contextMenu)
+  })
+
+
+
+app.setUserTasks([])
 
 function getLocale(texto) {
     if (texto.includes("/ameaca")) {
@@ -35,14 +60,48 @@ function getLocale(texto) {
 }
 
 const createWindow = () => {
-    const page = new BrowserWindow({
+    let page = new BrowserWindow({
         width: 1200,
         height: 600,
         minWidth: 1080,
         minHeight: 600,
         icon: `${__dirname}/icon.png`,
         autoHideMenuBar: true,
+        
     });
+    page.on('closed', function () {
+        page = null;
+    });
+
+    const gotTheLock = app.requestSingleInstanceLock();
+
+if (!gotTheLock) {
+    app.quit();
+} else {
+    // Se conseguir o bloqueio, continuar com a criação da janela
+    app.on('second-instance', (event, commandLine, workingDirectory) => {
+        // Se o usuário tentar iniciar uma segunda instância, focar na janela principal existente
+        if (page) {
+            if (page.isMinimized()) page.restore();
+            page.focus();
+        }
+    });
+
+    app.on('ready', createWindow);
+
+    app.on('window-all-closed', function () {
+        if (process.platform !== 'darwin') {
+            app.quit();
+        }
+    });
+
+    app.on('activate', function () {
+        if (page === null) {
+            createWindow();
+        }
+    });}
+
+
 
     // Função para logar a URL atual
     const logCurrentUrl = () => {
@@ -106,13 +165,8 @@ app.whenReady().then(createWindow);
 client.login({ clientId: id }).catch(console.error);
 
 setInterval(() => {
-    //console.log(atual_page);
-    //console.log(patente);
     updatePresence(getPatente(patente), startedAt, lugares[getLocale(atual_page)], 'Equipe').then(() => {
-        
-
     }).catch(error => {
-        //console.error('Erro ao atualizar RPC', error);
     });
 }, 60000);
 

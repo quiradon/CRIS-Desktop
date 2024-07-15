@@ -1,6 +1,6 @@
 {
   "name": "cris",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "C.R.I.S versão desktop",
   "main": "app/index.js",
   "scripts": {
@@ -10,11 +10,19 @@
   "author": "Quir",
   "license": "ISC",
   "build" : {
-    "appId": "com.quir.cris",
-    "productName": "C.R.I.S",
+    
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "runAfterFinish": true,
+      "shortcutName": "C.R.I.S."
+    },
+    "appId": "com.cris.app",
+    "productName": "C.R.I.S.",
     "directories": {
       "output": "dist"
     },
+    
     "win": {
 
     }

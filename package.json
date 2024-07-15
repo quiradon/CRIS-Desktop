@@ -1,12 +1,12 @@
 {
   "name": "cris",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "C.R.I.S versão desktop",
   "main": "app/index.js",
   "src" : "app",
   "scripts": {
     "start": "electron .",
-    "test" : "teste"
+    "build" : "electron-builder"
   },
   "author": "Quir",
   "publisher": "CRIS",

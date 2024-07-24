@@ -8,8 +8,8 @@
     "start": "electron .",
     "build" : "electron-builder"
   },
-  "author": "Quir",
-  "publisher": "CRIS",
+  "author": "Portal RPG",
+  "publisher": "Portal RPG",
   "license": "ISC",
   "build" : {
     

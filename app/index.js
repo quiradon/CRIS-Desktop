@@ -62,6 +62,7 @@ const createWindow = () => {
         autoHideMenuBar: true,
         
     });
+    page.maximize();
     page.on('closed', function () {
         page = null;
     });
@@ -81,6 +82,7 @@ if (!gotTheLock) {
     });
 
     app.on('ready', createWindow);
+
 
     app.on('window-all-closed', function () {
         if (process.platform !== 'darwin') {

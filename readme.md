@@ -5,3 +5,4 @@ Aplicativo desktop fã made do C.R.I.S plataforma não oficial para jogar RPG de
 Guia de Instalação
 Baixe o arquivo zipado do projeto e extraia em uma pasta de sua preferência.
 abra o arquivo
+Open Source
